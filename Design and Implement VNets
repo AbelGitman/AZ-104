@@ -1,0 +1,90 @@
+//Create Vnets
+
+az network vnet create \
+	--name CoreServicesVnet \
+	--resource-group learn-06adf36f-d24b-4ef3-a88b-92ed65fa3645 \
+	--address-prefixes 10.20.0.0/16 \
+	--location westus
+	
+az network vnet create \
+	--name ManufacturingVnet \
+	--resource-group learn-06adf36f-d24b-4ef3-a88b-92ed65fa3645 \
+	--address-prefixes 10.30.0.0/16 \
+	--location northeurope \
+	
+az network vnet create \
+	--name ResearchVnet \
+	--resource-group learn-06adf36f-d24b-4ef3-a88b-92ed65fa3645 \
+	--address-prefixes 10.40.0.0/24 \
+	--location westindia \
+	
+#Create CoreServicesVnet Subnets
+
+	
+az network vnet subnet create \
+	--resource-group learn-06adf36f-d24b-4ef3-a88b-92ed65fa3645 \
+	--name GatewaySubnet \
+	--vnet-name CoreServicesVnet \
+	--address-prefixes 10.20.0.0/27 
+
+az network vnet subnet create \
+	--resource-group learn-06adf36f-d24b-4ef3-a88b-92ed65fa3645 \
+	--name SharedServicesSubnet \
+	--vnet-name CoreServicesVnet \
+	--address-prefixes 10.20.10.0/24
+	
+az network vnet subnet create \
+	--resource-group learn-06adf36f-d24b-4ef3-a88b-92ed65fa3645 \
+	--name DatabaseSubnet \
+	--vnet-name CoreServicesVnet \
+	--address-prefixes 10.20.20.0/24 
+
+az network vnet subnet create \
+	--resource-group learn-06adf36f-d24b-4ef3-a88b-92ed65fa3645 \
+	--name PublicWebServiceSubnet \
+	--vnet-name CoreServicesVnet \
+	--address-prefixes 10.20.30.0/24 
+	
+az network vnet subnet list \
+	--resource-group learn-06adf36f-d24b-4ef3-a88b-92ed65fa3645\
+	--vnet-name CoreServicesVnet \
+	--output table
+	
+#Create ManufacturingVnet Subnets
+
+az network vnet subnet create \
+    --resource-group learn-06adf36f-d24b-4ef3-a88b-92ed65fa3645 \
+    --vnet-name ManufacturingVnet \
+    --name ManufacturingSystemSubnet \
+    --address-prefixes 10.30.10.0/24
+
+az network vnet subnet create \
+    --resource-group learn-06adf36f-d24b-4ef3-a88b-92ed65fa3645 \
+    --vnet-name ManufacturingVnet \
+    --name SensorSubnet1 \
+    --address-prefixes 10.30.20.0/24
+
+az network vnet subnet create \
+    --resource-group learn-06adf36f-d24b-4ef3-a88b-92ed65fa3645 \
+    --vnet-name ManufacturingVnet \
+    --name SensorSubnet2 \
+    --address-prefixes 10.30.21.0/24
+
+az network vnet subnet create \
+    --resource-group learn-06adf36f-d24b-4ef3-a88b-92ed65fa3645 \
+    --vnet-name ManufacturingVnet \
+    --name SensorSubnet3 \
+    --address-prefixes 10.30.22.0/24
+	
+az network vnet subnet list \
+    --resource-group learn-06adf36f-d24b-4ef3-a88b-92ed65fa3645 \
+    --vnet-name ManufacturingVnet \
+    --output table
+	
+#Create ResearchVnet Subnets
+
+az network vnet subnet create  \
+	--resource-group learn-06adf36f-d24b-4ef3-a88b-92ed65fa3645 \
+	--name ResearchSystemSubnet \
+	--vnet-name ResearchVnet \
+	--address-prefixes 10.40.0.0/24
